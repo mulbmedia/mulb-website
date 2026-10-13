@@ -67,7 +67,6 @@
       var m;
       if (isVideo) {
         m = document.createElement("video"); m.muted = true; m.loop = true; m.playsInline = true; m.preload = "metadata"; m.src = src + "#t=0.1"; b.appendChild(m);
-        var t = document.createElement("span"); t.className = "tag"; t.textContent = "▶ Video"; b.appendChild(t);
         if (io) io.observe(m); else m.autoplay = true;
       } else { m = document.createElement("img"); m.loading = "lazy"; m.alt = ""; m.src = src; b.appendChild(m); }
       m.addEventListener("error", function () {
