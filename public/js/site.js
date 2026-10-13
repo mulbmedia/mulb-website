@@ -17,14 +17,14 @@
     if (it.isVideo) {
       el = document.createElement("video");
       el.loop = true; el.playsInline = true; el.autoplay = true; el.preload = "auto"; el.muted = true;
-      el.src = it.src; lbc.appendChild(el);
+      el.src = it.src; el.setAttribute("aria-label", "Video: " + it.title); lbc.appendChild(el);
       var mb = document.createElement("button"); mb.type = "button"; mb.className = "mute"; mb.setAttribute("aria-label", "Ton an oder aus"); lbc.appendChild(mb);
       var paint = function () { mb.innerHTML = el.muted ? ICON_OFF : ICON_ON; };
       mb.addEventListener("click", function () { el.muted = !el.muted; paint(); });
       paint();
       el.play().catch(function () {});
     } else {
-      el = document.createElement("img"); el.alt = ""; el.src = it.src; lbc.appendChild(el);
+      el = document.createElement("img"); el.alt = it.title + " — MULB"; el.src = it.src; lbc.appendChild(el);
     }
     counter();
     // Nachbarbilder vorladen
@@ -63,7 +63,8 @@
     }, { rootMargin: "100px" }) : null;
     data.items.forEach(function (file, i) {
       var isVideo = /\.(mp4|webm|mov)$/i.test(file), src = root + "media/" + cat + "/" + file;
-      var b = document.createElement("button"); b.type = "button"; b.className = "tile"; b.setAttribute("aria-label", "Vergrößern");
+      var title = data.alt + " " + (i + 1);
+      var b = document.createElement("button"); b.type = "button"; b.className = "tile"; b.setAttribute("aria-label", title + " vergrößern");
       var m;
       if (isVideo) {
         m = document.createElement("video"); m.muted = true; m.loop = true; m.playsInline = true; m.preload = "metadata"; m.src = src + "#t=0.1"; b.appendChild(m);
@@ -80,12 +81,12 @@
         };
         mt.addEventListener("click", toggle);
         mt.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") toggle(e); });
-      } else { m = document.createElement("img"); m.loading = "lazy"; m.alt = ""; m.src = src; b.appendChild(m); }
+      } else { m = document.createElement("img"); m.loading = "lazy"; m.alt = title + " — MULB"; m.src = src; b.appendChild(m); }
       m.addEventListener("error", function () {
         b.classList.add("gone"); failed++;
         if (failed === total) { var e = document.getElementById("galempty"); if (e) e.hidden = false; }
       });
-      list.push({ src: src, isVideo: isVideo, b: b, v: isVideo ? m : null, mt: isVideo ? mt : null });
+      list.push({ src: src, isVideo: isVideo, title: title, b: b, v: isVideo ? m : null, mt: isVideo ? mt : null });
       b.addEventListener("click", function () { openLb(i); });
       g.appendChild(b);
     });
@@ -106,8 +107,23 @@
     e.preventDefault();
     var n = f.elements.name.value.trim(), m = f.elements.email.value.trim(), t = f.elements.msg.value.trim(), s = document.getElementById("cstatus");
     if (!n || !m || !t || !f.elements.email.checkValidity()) { s.textContent = "Bitte fülle alle Felder mit * korrekt aus."; return; }
-    var body = "Name: " + n + "\nE-Mail: " + m + "\n\nProjekt:\n" + t;
-    window.location.href = "mailto:m.ulb@icloud.com?subject=" + encodeURIComponent("Projektanfrage von " + n) + "&body=" + encodeURIComponent(body);
-    s.textContent = "Dein E-Mail-Programm öffnet sich. Bitte sende die Nachricht dort ab.";
+    if (f.elements.botcheck && f.elements.botcheck.checked) return;
+    var key = window.MULB_FORM_KEY || "", btn = f.querySelector("button[type=submit]");
+    var viaMail = function () {
+      var body = "Name: " + n + "\nE-Mail: " + m + "\n\nProjekt:\n" + t;
+      window.location.href = "mailto:m.ulb@icloud.com?subject=" + encodeURIComponent("Projektanfrage von " + n) + "&body=" + encodeURIComponent(body);
+      s.textContent = "Dein E-Mail-Programm öffnet sich. Bitte sende die Nachricht dort ab — oder schreib direkt an m.ulb@icloud.com.";
+    };
+    if (!key) { viaMail(); return; }
+    btn.disabled = true; s.textContent = "Wird gesendet …";
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ access_key: key, subject: "Projektanfrage von " + n, from_name: "MULB Website", name: n, email: m, message: t, botcheck: "" })
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.success) { s.textContent = "Danke, " + n + "! Deine Anfrage ist angekommen. Ich melde mich innerhalb von 24 Stunden."; f.reset(); }
+      else { throw new Error("fail"); }
+    }).catch(function () {
+      s.textContent = "Das Senden hat nicht geklappt. Bitte schreib mir direkt an m.ulb@icloud.com.";
+    }).then(function () { btn.disabled = false; });
   });
 })();

@@ -1,4 +1,9 @@
 
+@font-face{font-family:Inter;font-weight:400;font-style:normal;font-display:swap;src:url(../fonts/inter-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:500;font-style:normal;font-display:swap;src:url(../fonts/inter-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:600;font-style:normal;font-display:swap;src:url(../fonts/inter-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-weight:500;font-style:normal;font-display:swap;src:url(../fonts/space-grotesk-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-weight:700;font-style:normal;font-display:swap;src:url(../fonts/space-grotesk-latin-700-normal.woff2) format("woff2")}
 :root{--radius:1rem;--bg:oklch(95.5% .014 235);--fg:oklch(24% .035 262);--card:oklch(100% 0 0/.62);--primary:oklch(62% .125 214);--accent:oklch(55% .18 276);--muted:oklch(46% .035 258);--border:oklch(24% .035 262/.12);--display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
