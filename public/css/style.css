@@ -66,11 +66,14 @@ a:hover>.more,.more:hover{transform:translateX(4px)}
 .pack ul li::before{content:"";position:absolute;left:0;top:.8rem;width:.55rem;height:.55rem;border-radius:50%;background:linear-gradient(90deg,var(--primary),var(--accent))}
 .pack .more{margin-top:1.2rem}
 .num{display:block;font-family:var(--display);font-weight:700;color:var(--primary);font-size:.95rem;letter-spacing:.1em;margin-bottom:.6rem}
+.step .num{flex:none;display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--primary);color:#fff;font-size:1rem;letter-spacing:0;margin:0}
 .note{color:var(--muted);margin-top:1.6rem;font-size:.95rem}
 .steps{display:grid;gap:1.1rem;margin-top:1rem}
 @media(min-width:900px){.steps{grid-template-columns:repeat(3,1fr)}}
 .step{padding:1.8rem}
-.step p{color:var(--muted);margin-top:.5rem}
+.sh{display:flex;align-items:center;gap:.9rem;min-height:3.4rem}
+.sh h3{margin:0;line-height:1.25;font-size:1.1rem}
+.step p{color:var(--muted);margin-top:.9rem}
 .about{display:grid;gap:2.5rem;align-items:center}
 @media(min-width:900px){.about{grid-template-columns:minmax(0,22rem) 1fr;gap:4rem}}
 .portrait{aspect-ratio:4/5;border-radius:2rem;overflow:hidden;background:linear-gradient(140deg,oklch(88% .07 205),oklch(82% .07 280))}
@@ -130,6 +133,7 @@ dialog img,dialog video{max-width:100%;max-height:88vh;display:block;object-fit:
 .nav.prev{left:1rem}.nav.next{right:1rem}
 #lbn{position:fixed;top:1.5rem;left:1.5rem;font-size:.95rem;opacity:.85}
 .mute{display:grid;place-items:center;color:var(--fg)}
+.tilemute{z-index:2}
 .mute svg{width:1.25rem;height:1.25rem}
 @media(max-width:600px){.nav{width:2.4rem;height:2.4rem}.nav.prev{left:.4rem}.nav.next{right:.4rem}}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
