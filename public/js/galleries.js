@@ -45,9 +45,13 @@ window.GALLERIES = {
  "social-media": {
   "alt": "Social-Media-Content",
   "items": [
-   "Work-product.jpg",
-   "Work-portrait.jpg",
-   "Work-event.jpg"
+   "Iglu.mp4",
+   "Lasertag.mp4",
+   "Wien.mp4",
+   "Gaming-museum.mp4",
+   "Mammuthoehle.mp4",
+   "Feuerdorf.mp4",
+   "Glasbodenkajak.mp4"
   ]
  },
  "fashion": {
