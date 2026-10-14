@@ -128,6 +128,10 @@ footer{padding:2rem 0 3rem;color:var(--muted);font-size:.95rem}
 .tile video{aspect-ratio:9/16;object-fit:cover}
 .tile:hover img,.tile:hover video{transform:scale(1.03)}
 .tile.gone{display:none}
+.masonry.vids{columns:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem}
+.masonry.vids .tile{width:calc((100% - .8rem)/2);margin:0}
+@media(min-width:900px){.masonry.vids{gap:1rem}.masonry.vids .tile{width:calc((100% - 2rem)/3)}}
+
 .tile .tag{display:none!important;position:absolute;top:.7rem;right:.7rem;background:oklch(100% 0 0/.88);border-radius:999px;padding:.2rem .7rem;font-size:.78rem;font-weight:600}
 .cta{padding:clamp(1.5rem,4vw,3rem);display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center}
 .doc{padding:3rem 0 2rem}
